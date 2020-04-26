@@ -1,0 +1,45 @@
+PODS:
+  - Alamofire (4.9.1)
+  - FTIndicator (1.2.9):
+    - FTIndicator/FTNotificationIndicator (= 1.2.9)
+    - FTIndicator/FTProgressIndicator (= 1.2.9)
+    - FTIndicator/FTToastIndicator (= 1.2.9)
+  - FTIndicator/FTNotificationIndicator (1.2.9)
+  - FTIndicator/FTProgressIndicator (1.2.9)
+  - FTIndicator/FTToastIndicator (1.2.9)
+  - Kingfisher (4.10.1)
+  - RxAlamofire (4.3.0):
+    - RxAlamofire/Core (= 4.3.0)
+  - RxAlamofire/Core (4.3.0):
+    - Alamofire (~> 4.5)
+    - RxSwift (~> 4)
+  - RxSwift (4.5.0)
+  - SwiftyJSON (4.2.0)
+
+DEPENDENCIES:
+  - FTIndicator (~> 1.2.9)
+  - Kingfisher (~> 4.10.0)
+  - RxAlamofire (~> 4.3.0)
+  - RxSwift
+  - SwiftyJSON (~> 4.2.0)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - FTIndicator
+    - Kingfisher
+    - RxAlamofire
+    - RxSwift
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  FTIndicator: f7f071fd159e5befa1d040a9ef2e3ab53fa9322c
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+
+PODFILE CHECKSUM: e323326c9c75e7ac5edf9a36ab7df27cce6cda9f
+
+COCOAPODS: 1.9.1
