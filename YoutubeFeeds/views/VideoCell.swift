@@ -24,18 +24,17 @@ class VideoCell: BaseCell {
     
     var video: Video? {
         didSet {
-            print("didSet: \(video?.index ?? 1101)")
             
             titleLabel.text = video?.title
             
-            thumbnailImageView.loadImgFromURLString(urlStr: video?.thumbnailImageName ?? "")
+            thumbnailImageView.loadImgFromURLString(urlStr: video?.thumbnail_image_name ?? "")
             
-            userProfileImageView.loadImgFromURLString(urlStr: video?.channel?.profileImageName ?? "")
+            userProfileImageView.loadImgFromURLString(urlStr: video?.channel?.profile_image_name ?? "")
             
             let numberFormater = NumberFormatter()
             numberFormater.numberStyle = .decimal
             
-            if let channelName  = video?.channel?.name, let numberOfView = video?.numberOfViews  {
+            if let channelName  = video?.channel?.name, let numberOfView = video?.number_of_views  {
                 subtitleTextView.text = "\(channelName) - \( numberFormater.string(from: numberOfView) ?? "0") views - 2 years ago"
             }
             

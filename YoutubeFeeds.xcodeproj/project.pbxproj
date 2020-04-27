@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A5223B122456726100C5632E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5223B112456726100C5632E /* APIService.swift */; };
+		A5223B14245681DB00C5632E /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5223B13245681DB00C5632E /* FeedCell.swift */; };
+		A5223B16245699AD00C5632E /* TrendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5223B15245699AD00C5632E /* TrendingCell.swift */; };
+		A5223B1824569CFF00C5632E /* trending.json in Resources */ = {isa = PBXBuildFile; fileRef = A5223B1724569CFF00C5632E /* trending.json */; };
+		A5223B1A24569E2700C5632E /* SubcriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5223B1924569E2700C5632E /* SubcriptionCell.swift */; };
+		A5223B1C24569E3B00C5632E /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5223B1B24569E3B00C5632E /* ProfileCell.swift */; };
+		A5223B1E2456A02000C5632E /* subscriptions.json in Resources */ = {isa = PBXBuildFile; fileRef = A5223B1D2456A02000C5632E /* subscriptions.json */; };
+		A5223B202456CE7E00C5632E /* VideoLaucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5223B1F2456CE7E00C5632E /* VideoLaucher.swift */; };
 		A56121EB2451EA26009AA3B6 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56121EA2451EA26009AA3B6 /* Video.swift */; };
 		A56121F024529322009AA3B6 /* homedata.json in Resources */ = {isa = PBXBuildFile; fileRef = A56121EF24529322009AA3B6 /* homedata.json */; };
 		A56121F224529374009AA3B6 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A56121F124529374009AA3B6 /* Podfile */; };
@@ -52,6 +60,14 @@
 		386D576FE68C776010E35743 /* libPods-YoutubeFeeds.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YoutubeFeeds.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FD62ECE1C8BAFC2A380891 /* Pods-YoutubeFeeds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeFeeds.release.xcconfig"; path = "Target Support Files/Pods-YoutubeFeeds/Pods-YoutubeFeeds.release.xcconfig"; sourceTree = "<group>"; };
 		8DEAC81C521671C239E4F10D /* Pods-YoutubeFeeds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeFeeds.debug.xcconfig"; path = "Target Support Files/Pods-YoutubeFeeds/Pods-YoutubeFeeds.debug.xcconfig"; sourceTree = "<group>"; };
+		A5223B112456726100C5632E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		A5223B13245681DB00C5632E /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		A5223B15245699AD00C5632E /* TrendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCell.swift; sourceTree = "<group>"; };
+		A5223B1724569CFF00C5632E /* trending.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trending.json; sourceTree = "<group>"; };
+		A5223B1924569E2700C5632E /* SubcriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcriptionCell.swift; sourceTree = "<group>"; };
+		A5223B1B24569E3B00C5632E /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		A5223B1D2456A02000C5632E /* subscriptions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = subscriptions.json; sourceTree = "<group>"; };
+		A5223B1F2456CE7E00C5632E /* VideoLaucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLaucher.swift; sourceTree = "<group>"; };
 		A56121EA2451EA26009AA3B6 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		A56121EF24529322009AA3B6 /* homedata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = homedata.json; sourceTree = "<group>"; };
 		A56121F124529374009AA3B6 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
@@ -124,9 +140,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A5223B102456724B00C5632E /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				A5223B112456726100C5632E /* APIService.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
 		A56121EE2452930D009AA3B6 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				A5223B1D2456A02000C5632E /* subscriptions.json */,
+				A5223B1724569CFF00C5632E /* trending.json */,
 				A56121F324529AB5009AA3B6 /* home.json */,
 				A56121EF24529322009AA3B6 /* homedata.json */,
 			);
@@ -159,11 +185,13 @@
 		A5D45F242450079A008CD760 /* YoutubeFeeds */ = {
 			isa = PBXGroup;
 			children = (
+				A5223B102456724B00C5632E /* APIService */,
 				A56121EE2452930D009AA3B6 /* resource */,
 				A5D45F5624515D2A008CD760 /* helper */,
 				A5D45F5324515CEF008CD760 /* views */,
 				A5D45F252450079A008CD760 /* AppDelegate.swift */,
 				A5D45F272450079A008CD760 /* HomeController.swift */,
+				A5223B1F2456CE7E00C5632E /* VideoLaucher.swift */,
 				A5D45F292450079A008CD760 /* Main.storyboard */,
 				A5D45F2C2450079C008CD760 /* Assets.xcassets */,
 				A5D45F2E2450079C008CD760 /* LaunchScreen.storyboard */,
@@ -199,6 +227,10 @@
 				A56121EA2451EA26009AA3B6 /* Video.swift */,
 				A56121F72452E37E009AA3B6 /* SettingCell.swift */,
 				A56121F52452D871009AA3B6 /* SettingLauncher.swift */,
+				A5223B13245681DB00C5632E /* FeedCell.swift */,
+				A5223B15245699AD00C5632E /* TrendingCell.swift */,
+				A5223B1924569E2700C5632E /* SubcriptionCell.swift */,
+				A5223B1B24569E3B00C5632E /* ProfileCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -323,6 +355,8 @@
 			files = (
 				A56121F224529374009AA3B6 /* Podfile in Resources */,
 				A5D45F302450079C008CD760 /* LaunchScreen.storyboard in Resources */,
+				A5223B1E2456A02000C5632E /* subscriptions.json in Resources */,
+				A5223B1824569CFF00C5632E /* trending.json in Resources */,
 				A5D45F2D2450079C008CD760 /* Assets.xcassets in Resources */,
 				A5D45F2B2450079A008CD760 /* Main.storyboard in Resources */,
 				A56121F424529AB5009AA3B6 /* home.json in Resources */,
@@ -394,6 +428,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5D45F5E24515E0C008CD760 /* VideoCell.swift in Sources */,
+				A5223B1A24569E2700C5632E /* SubcriptionCell.swift in Sources */,
+				A5223B202456CE7E00C5632E /* VideoLaucher.swift in Sources */,
 				A5D45F5C24515D8F008CD760 /* extensionUIView.swift in Sources */,
 				A5D45F6224518D81008CD760 /* MenuCell.swift in Sources */,
 				A5D45F282450079A008CD760 /* HomeController.swift in Sources */,
@@ -401,9 +437,13 @@
 				A5D45F5A24515D6C008CD760 /* extensionUIColor.swift in Sources */,
 				A5D45F642451A587008CD760 /* extensions.swift in Sources */,
 				A56121F82452E37E009AA3B6 /* SettingCell.swift in Sources */,
+				A5223B16245699AD00C5632E /* TrendingCell.swift in Sources */,
+				A5223B122456726100C5632E /* APIService.swift in Sources */,
 				A5D45F6024517B38008CD760 /* extensionUIViewController.swift in Sources */,
 				A56121EB2451EA26009AA3B6 /* Video.swift in Sources */,
+				A5223B14245681DB00C5632E /* FeedCell.swift in Sources */,
 				A5D45F5524515CFE008CD760 /* menuBar.swift in Sources */,
+				A5223B1C24569E3B00C5632E /* ProfileCell.swift in Sources */,
 				A5D45F262450079A008CD760 /* AppDelegate.swift in Sources */,
 				A5D45F5824515D4D008CD760 /* extensionUINavigationController.swift in Sources */,
 			);
@@ -584,6 +624,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SNBNU32XKK;
 				INFOPLIST_FILE = YoutubeFeeds/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -603,6 +644,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SNBNU32XKK;
 				INFOPLIST_FILE = YoutubeFeeds/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

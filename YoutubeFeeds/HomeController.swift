@@ -13,79 +13,157 @@ import SwiftyJSON
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    let menuTitleStr = ["Home", "Trending", "Subcriptions", "Account"]
+    let cellId = "cellId"
+    
+    let trendingCellId = "trendingCellId"
+    let subcriptionCellId = "subcriptionCellId"
+    let profileCellId = "profileCellId"
+    
+    
     var videos:[Video] = {
         
-        var keynalChannel = Channel()
-        keynalChannel.name  = "KeynalIsTheBestChannel"
-        keynalChannel.profileImageName = "youtuber_avatar"
-        
-        var blankSpaceVideo = Video()
-        blankSpaceVideo.title = "Taylor Swift - Blank Space"
-        blankSpaceVideo.thumbnailImageName = "taylor_swift"
-        //blankSpaceVideo.detail = "Taylor Swift VEVO - Blank Space - 1,604,208 views - 2 years ago."
-        blankSpaceVideo.channel = keynalChannel
-        blankSpaceVideo.numberOfViews = 1424567098
-        
-        var badBloodVideo = Video()
-        badBloodVideo.title = "Taylor Swift - Bad Blood where human fight to live every day."
-        badBloodVideo.thumbnailImageName = "taylor_swift1"
-        //badBloodVideo.detail = "Taylor Swift VEVO -  Bad Blood - 2,622,507 views - 3 years ago."
-        badBloodVideo.channel = keynalChannel
-        badBloodVideo.numberOfViews = 29887375233
+//        var keynalChannel = Channel()
+//        keynalChannel.name  = "KeynalIsTheBestChannel"
+//        keynalChannel.profile_image_name = "youtuber_avatar"
+//        
+//        var blankSpaceVideo = Video()
+//        blankSpaceVideo.title = "Taylor Swift - Blank Space"
+//        blankSpaceVideo.thumbnail_image_name = "taylor_swift"
+//        //blankSpaceVideo.detail = "Taylor Swift VEVO - Blank Space - 1,604,208 views - 2 years ago."
+//        blankSpaceVideo.channel = keynalChannel
+//        blankSpaceVideo.number_of_views = 1424567098
+//        
+//        var badBloodVideo = Video()
+//        badBloodVideo.title = "Taylor Swift - Bad Blood where human fight to live every day."
+//        badBloodVideo.thumbnail_image_name = "taylor_swift1"
+//        //badBloodVideo.detail = "Taylor Swift VEVO -  Bad Blood - 2,622,507 views - 3 years ago."
+//        badBloodVideo.channel = keynalChannel
+//        badBloodVideo.number_of_views = 29887375233
         
         return []
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        edgesForExtendedLayout = [] //UIRectEdgeNone
+        //self.edgesForExtendedLayout = UIRectEdge.top
+        //self.extendedLayoutIncludesOpaqueBars = true
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getHomeData()
         
-        //navigationItem.title = "Home"
-//        navigationController?.hidesBarsOnSwipe = true
+        setupNavigationVC()
         
-        //navigationController?.navigationBar.barTintColor = UIColor.rgb(displayP3Red: 230, green: 32, blue: 31, alpha: 1)
+        setupCollectionView()
         
+        setupMenuBar()
+        
+        setupNavBarButtons()
+    }
+    
+    func setupNavigationVC() {
         navigationController?.navigationBar.shadowImage = UIImage()
         //navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-32, height: view.frame.height))
-        titleLabel.text = "Home"
+        titleLabel.text = "  Home"
         
         titleLabel.textColor = .white
         titleLabel.font = UIFont.systemFont(ofSize: 20)
         navigationItem.titleView = titleLabel
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-  
+    }
+    
+    
+    
+    func setupCollectionView() {
+        
+        let flowLayout = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
+        
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 0
+        
         collectionView.backgroundColor = .white
         
-        collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "cellId")
-        collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        //collectionView.register(VideoCell.self, forCellWithReuseIdentifier: cellId)
         
-        setupMenuBar()
-        setupNavBarButtons()
-
+        collectionView.register(FeedCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(TrendingCell.self, forCellWithReuseIdentifier: trendingCellId)
+        
+        collectionView.register(SubcriptionCell.self, forCellWithReuseIdentifier: subcriptionCellId)
+        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: profileCellId)
+//        collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+//        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        
+        collectionView.isPagingEnabled = true
+    }
+    
+    func scrollToMenuIndex(menuIndex:Int) {
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: [] , animated: true)
+        
+        setTitleForItemIndex(menuIndex)
+    }
+    
+    func setTitleForItemIndex(_ index: Int) {
+        if let mtitle = navigationItem.titleView as? UILabel {
+            mtitle.text = "  \(menuTitleStr[index])"
+        }
+    }
+    
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print(targetContentOffset.pointee.x)
+        
+        let index = targetContentOffset.pointee.x / self.view.frame.width
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        menubar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+        
+        //let mindex:Int = Int(index)
+        setTitleForItemIndex(Int(index))
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        menubar.horizonBarLeftConstraint?.constant = scrollView.contentOffset.x / 4
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.item == 0 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        } else if indexPath.item == 1 {
+            return  collectionView.dequeueReusableCell(withReuseIdentifier: trendingCellId, for: indexPath)
+        } else if indexPath.item == 2 {
+            return  collectionView.dequeueReusableCell(withReuseIdentifier: subcriptionCellId, for: indexPath)
+        } else if indexPath.item == 3 {
+            return  collectionView.dequeueReusableCell(withReuseIdentifier: profileCellId, for: indexPath)
+        }
+        
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let colors:[UIColor] = [.blue, .gray, .green, .purple]
+        cell.backgroundColor = colors[indexPath.item]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.frame.width, height:  self.view.frame.height)
     }
     
     func getHomeData() {
-        let json = readJsonFile()
-        
-        for (index, item) in json.arrayValue.enumerated()  {
-            print("\(index) - item: \(item)")
-            
-            let keynalChannel = Channel()
-            keynalChannel.name  = item["channel"]["name"].stringValue
-            keynalChannel.profileImageName = item["channel"]["profile_image_name"].stringValue
-            
-            let mvideo = Video()
-            mvideo.title = item["title"].stringValue
-            mvideo.thumbnailImageName = item["thumbnail_image_name"].stringValue
-            mvideo.channel = keynalChannel
-            mvideo.numberOfViews = item["profile_image_name"].numberValue
-            
-            videos.append(mvideo)
-        }
+        APIService.shared.getHomeData(completion: { mvideos in
+            self.videos = mvideos
+            self.collectionView.reloadData()
+        })
     }
     
     func setupNavBarButtons() {
@@ -93,7 +171,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let searchBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(handleSearchAction), imageName: "nav-search")
         
         let menuBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(handleMenuAction), imageName: "nav-menu-vertical")
-        
         
         //let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
@@ -129,37 +206,37 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     func setupMenuBar() {
-        view.addSubview(menubar)
         
+        navigationController?.hidesBarsOnSwipe = true
+        
+        /// redView - che khoảng trống giữa menu topbar - navigation bar
+        /// pin to superview (not to safe layout)
+        let redView = UIView()
+        view.addSubview(redView)
+        redView.backgroundColor = menubar.backgroundColor
+        view.addConstraintsWithFormat(format:"H:|[v0]|", views: redView)
+        view.addConstraintsWithFormat(format:"V:|[v0(50)]", views: redView)
+        /// done
+        
+        view.addSubview(menubar)
         print("navigationItem.titleView :: \(String(describing: self.topbarHeight))")
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menubar)
-        //view.addConstraintsWithFormat(format: "V:|[v0(50)]", views: menubar)
+        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: menubar)
         
-        //view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0(topY)]", options: NSLayoutConstraint.FormatOptions(), metrics: ["topY":self.topbarHeight+50], views: ["v0":menubar]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-topY-[v0(50)]", options: NSLayoutConstraint.FormatOptions(), metrics: ["topY":self.topbarHeight], views: ["v0":menubar]))
-        
+        let guide = view.safeAreaLayoutGuide
+        menubar.topAnchor.constraint(equalTo: guide.topAnchor).isActive = true
+        menubar.homeController = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        let selectedIndexPath = IndexPath(item: 0, section: 0)
-        
-        menubar.collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
-        //menubar.collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: UICollectionView.ScrollPosition(rawValue: 0))
-    }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        //var darkMode = false
-        //return darkMode ? .default : .lightContent
-        return .lightContent
-    }
-    
+    /*
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! VideoCell
         //cell.detailText.text = videos[indexPath.item].title
         //cell.titleLabel.text = videos[indexPath.item].title
         //cell.thumbnailImageView.image = UIImage(named: videos[indexPath.item].thumbnailImageName!)
@@ -183,21 +260,21 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return 0
     }
     
+    */
     
-    func readJsonFile() -> JSON{
-        if let path = Bundle.main.path(forResource: "home", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-                let jsonObj = try JSON(data: data)
-                //print("jsonData:\(jsonObj)")
-                return jsonObj
-            } catch let error {
-                print("parse error: \(error.localizedDescription)")
-                return JSON()
-            }
-        } else {
-            print("Invalid filename/path.")
-            return JSON()
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        
+        /// Auto select menu item
+        
+        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        menubar.collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+        //menubar.collectionView.selectItem(at: selectedIndexPath, animated: true, scrollPosition: UICollectionView.ScrollPosition(rawValue: 0))
     }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        //var darkMode = false
+        //return darkMode ? .default : .lightContent
+        return .lightContent
+    }
+    
 }

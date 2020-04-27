@@ -10,11 +10,11 @@ import UIKit
 
 
 class Setting: NSObject {
-    var name:String = ""
+    var name:SettingName?
     var imageName:String = ""
     
     init(name:SettingName, imageName:String) {
-        self.name  = name.rawValue
+        self.name  = name
         self.imageName  = imageName
     }
 }
@@ -25,7 +25,7 @@ enum SettingName:String {
     case Feed = "Send feedback"
     case Help = "Help"
     case SwitchAcc = "Switch account"
-    case Cancel = "Cancel"
+    case Cancel = "Cancel & Dismiss"
 }
 
 class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -73,33 +73,21 @@ class SettingLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectio
     @objc func dismissBlackView(setting:Setting) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.blackView.alpha = 0
-            //self.collectionView.alpha = 0
             if let window  = UIApplication.shared.keyWindow  {
                 self.collectionView.frame =  CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
             }
-            
-            //self.blackView.alpha = 1
-            //self.collectionView.frame  = CGRect(x: 0,y: self.collectionView.frame.height,width: self.collectionView.frame.width, height: self.collectionView.frame.height)
             
         }, completion: { value in
             
             print("done  \(setting)")
             
             if !setting.isKind(of: UITapGestureRecognizer.self) {
-                if setting.name != "" && setting.name != "Cancel" {
-                    self.homeController?.showControllerForSetting(name: setting.name )
+                if setting.name != SettingName.Cancel {
+                    
+                    // check condition != Cance ~~~ do not depend on Constant String!
+                    self.homeController?.showControllerForSetting(name: setting.name?.rawValue ?? "" )
                 }
             }
-            
-            //DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            
-            //if setting != nil {
-            
-            //}
-            
-            
-            //}
-            
         })
     }
     

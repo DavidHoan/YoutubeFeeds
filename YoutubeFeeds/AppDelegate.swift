@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        let layout = UICollectionViewFlowLayout() 
+        let layout = UICollectionViewFlowLayout()
+        //layout.scrollDirection = .horizontal
         window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout) )
         
         //navigationController?.navigationBar.barTintColor = UIColor(displayP3Red: 230/255, green: 32/255, blue: 31/255, alpha: 1)
