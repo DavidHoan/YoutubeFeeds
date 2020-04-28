@@ -53,6 +53,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
     
+    var dragView:UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .blue
+        return v
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +72,42 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupMenuBar()
         
         setupNavBarButtons()
+        
+        
+//        self.view.addSubview(dragView)
+//
+//        //addConstraintsWithFormat(format: "H:|-16-[v0(44)]", views: userProfileImageView)
+//
+//
+//        self.view.addConstraintsWithFormat(format: "H:|-100-[v0(100)]", views: dragView)
+//        self.view.addConstraintsWithFormat(format: "V:|-100-[v0(100)]", views: dragView)
+//
+//        let tap = UILongPressGestureRecognizer(target: self, action: #selector(drag(_ :)))
+//        tap.minimumPressDuration = 0.0
+//
+//        dragView.addGestureRecognizer(tap)
     }
+    
+//    var newCord: CGPoint = CGPoint(x: 0, y: 0)
+//    var firstCord: CGPoint = CGPoint(x: 0, y: 0)
+    
+//    @objc func drag(_ sender: UILongPressGestureRecognizer ) {
+//        if sender.view ==  nil {
+//            return
+//        }
+//        if sender.state == UIGestureRecognizer.State.began {
+//            
+//        } else if sender.state == UIGestureRecognizer.State.ended {
+//            
+//        }
+//        self.newCord = sender.location(in: self.view)
+//        let x = newCord.x - (sender.view?.frame.width ?? 0 ) / 2
+//        let y = newCord.y - (sender.view?.frame.height ?? 0 ) / 2
+//        
+//        dragView.frame = CGRect(x: x, y: y, width: dragView.frame.width, height: dragView.frame.height)
+//        print("x: \(x) - y: \(y)")
+//        view.bringSubviewToFront(dragView)
+//    }
     
     func setupNavigationVC() {
         navigationController?.navigationBar.shadowImage = UIImage()

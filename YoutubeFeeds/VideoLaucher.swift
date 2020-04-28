@@ -188,7 +188,7 @@ class VideoPlayerView: UIView {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "currentItem.loadedTimeRanges" {
-            print(change ?? "")
+            //print(change ?? "")
             indicatorView.stopAnimating()
             controlsContainerView.backgroundColor = .clear
             pauseButton.isHidden = false
@@ -208,7 +208,22 @@ class VideoPlayerView: UIView {
     }
 }
 
+
+
+
+
+
+
 class VideoLaucher: NSObject {
+    
+    static let sharedInstance = VideoLaucher()
+    class func shared() -> VideoLaucher {
+        return sharedInstance
+    }
+    
+    var newCord: CGPoint = CGPoint(x: 0, y: 0)
+    var firstCord: CGPoint = CGPoint(x: 0, y: 0)
+    var bgView: UIView = UIView()
     func showVideoPlayer() {
         //
         //  print(123)
@@ -219,20 +234,95 @@ class VideoLaucher: NSObject {
             let videoPlayerFrame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
             let videoPlayerView = VideoPlayerView(frame: videoPlayerFrame)
             
-            let view = UIView(frame: keyWindow.frame)
-            view.backgroundColor = .white
             
-            view.frame = CGRect(x: keyWindow.frame.width - 10, y: keyWindow.frame.height - 10, width: 10, height: 10)
             
-            view.addSubview(videoPlayerView)
+            bgView = UIView(frame: keyWindow.frame)
+            bgView.backgroundColor = .white
             
-            keyWindow.addSubview(view)
+            bgView.frame = CGRect(x: keyWindow.frame.width - 10, y: keyWindow.frame.height - 10, width: 10, height: 10)
+            
+            bgView.addSubview(videoPlayerView)
+            
+            keyWindow.addSubview(bgView)
+            
+//            bgView.translatesAutoresizingMaskIntoConstraints = false
+//            keyWindow.addConstraintsWithFormat(format: "H:|[v0]|", views: bgView)
+//            keyWindow.addConstraintsWithFormat(format: "V:|[v0]|", views: bgView)
             
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                view.frame = keyWindow.frame
+                self.bgView.frame = keyWindow.frame
             }, completion: { (completedAnimation) in
                 UIApplication.shared.setStatusBarHidden(true, with: .fade)
             })
+            
+            //let ttt = UITapGestureRecognizer(target: self, action: #selector(tapppp(_ :)))
+            //bgView.addGestureRecognizer(ttt)
+            
+            let tap = UILongPressGestureRecognizer(target: VideoLaucher.self, action: #selector(VideoLaucher.drag(_ :)))
+            tap.minimumPressDuration = 0.1
+            bgView.addGestureRecognizer(tap)
+            print("view size :  \(bgView.frame.size)")
+            //bgView.isUserInteractionEnabled = true
+            
+            
+            //let mytapGestureRecognizer = UITapGestureRecognizer(target: VideoLaucher.self, action: #selector(VideoLaucher.myTapAction))
+            //mytapGestureRecognizer.numberOfTapsRequired = 1
+            //bgView.addGestureRecognizer(mytapGestureRecognizer)
+            
+        }
+    }
+    
+    @objc class func myTapAction(recognizer: UITapGestureRecognizer) {
+        print("let drag")
+    }
+    
+    @objc func tapppp(_ sender: UITapGestureRecognizer ) {
+        print("let drag")
+    }
+    
+    
+    
+    @objc class func drag(_ sender: UILongPressGestureRecognizer ) {
+        
+        //var newCord: CGPoint = CGPoint(x: 0, y: 0)
+        //var firstCord: CGPoint = CGPoint(x: 0, y: 0)
+        
+        print("let drag")
+        
+        if sender.view ==  nil {
+            return
+        }
+        
+        if sender.state == UIGestureRecognizer.State.began {
+            
+        } else if sender.state == UIGestureRecognizer.State.ended {
+            
+        }
+        
+        if let keyWindow = UIApplication.shared.keyWindow {
+            VideoLaucher.shared().newCord = sender.location(in: keyWindow)
+            let x = VideoLaucher.shared().newCord.x - (sender.view?.frame.width ?? 0 ) / 2
+            let y = VideoLaucher.shared().newCord.y - (sender.view?.frame.height ?? 0 ) / 2
+            
+            sender.view!.frame = CGRect(x: x, y: y, width: (sender.view?.frame.width)!, height: (sender.view?.frame.height)!)
+            print("x: \(x) - y: \(y)")
+            keyWindow.bringSubviewToFront(sender.view!)
         }
     }
 }
+
+//extension VideoLaucher : UIViewControllerAnimatedTransitioning {
+//    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+//        return 0.6
+//    }
+//
+//    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+//        guard
+//            let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from),
+//            let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to),
+//            let containerView = transitionContext.containerView
+//            else {
+//                return
+//        }
+//    }
+//}
